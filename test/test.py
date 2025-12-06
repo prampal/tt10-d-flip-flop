@@ -4,45 +4,48 @@
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
-18
+
 @cocotb.test()
 async def test_project(dut):
-dut._log.info("Start")
-# Set the clock period to 10 us (100 KHz)
-clock = Clock(dut.clk, 10, units="us")
-cocotb.start_soon(clock.start())
-# Reset
-dut._log.info("Reset")
-dut.ena.value = 1
-dut.ui_in.value = 0
-dut.uio_in.value = 0
-dut.rst_n.value = 0
-await ClockCycles(dut.clk, 10)
-dut.rst_n.value = 1
-dut._log.info("Test project behavior")
-# Set the input values you want to test
-dut.ui_in[0].value = 0
-dut.rst_n.value = 1
-# Wait for some clock cycles to see the output values
-await ClockCycles(dut.clk, 20)
-# The following assersion is just an example of how to check theoutput values.
-# Change it to match the actual expected output of your module:
-# Asserting the output is not required but encouraged.
-# assert dut.uo_out[0].value == 50
-# Keep testing the module by changing the input values, waitingfor
-# one or more clock cycles, and asserting the expected outputvalues.
-dut.rst_n.value = 0
-await ClockCycles(dut.clk, 10)
-dut.ui_in[0].value = 1
-await ClockCycles(dut.clk, 20)
-dut.rst_n.value = 1
-await ClockCycles(dut.clk, 18)
-dut.ui_in[0].value = 0
-await ClockCycles(dut.clk, 1)
-dut.ui_in[0].value = 1
-await ClockCycles(dut.clk, 20)
-dut.ui_in[0].value = 0
-await ClockCycles(dut.clk, 10)
+    dut._log.info("Start")
+    # Set the clock period to 10 us (100 KHz)
+    clock = Clock(dut.clk, 10, units="us")
+    cocotb.start_soon(clock.start())
+    # Reset
+    dut._log.info("Reset")
+    dut.ena.value = 1
+    dut.ui_in.value = 0
+    dut.uio_in.value = 0
+    dut.rst_n.value = 0
+    await ClockCycles(dut.clk, 10)
+    dut.rst_n.value = 1
+    dut._log.info("Test project behavior")
+
+    
+    # Set the input values you want to test
+    dut.ui_in[0].value = 0
+    dut.rst_n.value = 1
+    # Wait for some clock cycles to see the output values
+    await ClockCycles(dut.clk, 20)
+    assert dut.uo_out[0].value == 50
+    
+    dut.rst_n.value = 0
+    await ClockCycles(dut.clk, 10)
+    
+    dut.ui_in[0].value = 1
+    await ClockCycles(dut.clk, 20)
+    
+    dut.rst_n.value = 1
+    await ClockCycles(dut.clk, 18)
+    
+    dut.ui_in[0].value = 0
+    await ClockCycles(dut.clk, 1)
+    
+    dut.ui_in[0].value = 1
+    await ClockCycles(dut.clk, 20)
+    
+    dut.ui_in[0].value = 0
+    await ClockCycles(dut.clk, 10)
 
 
     # Keep testing the module by changing the input values, waiting for
