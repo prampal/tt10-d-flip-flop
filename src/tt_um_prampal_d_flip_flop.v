@@ -2,7 +2,6 @@
  * Copyright (c) 2024 Your Name
  * SPDX-License-Identifier: Apache-2.0
  */
-
 `default_nettype none
 module tt_um_prampal_d_flip_flop (
     input wire [7:0] ui_in, // Dedicated inputs
